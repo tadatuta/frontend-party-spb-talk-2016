@@ -1,0 +1,26 @@
+safe: true
+permalink: /:title.html
+exclude: [ assets, bem-components-demo, compare ]
+markdown: kramdown
+
+default_theme: yandex
+default_width: 792
+default_lang: ru
+default_body_class: list
+
+kramdown:
+  enable_coderay: false
+
+presentation:
+    title: Модульная сборка проектов.<br>И никаких bem-tools
+    service: БЭМ
+    nda: false
+
+author:
+    name: Владимир Гриненко
+    position: 29 апреля 2016, Frontend Party, Санкт-Петербург
+    company:
+        name: Яндекс
+        url:  https://yandex.ru/
+
+progress: true
