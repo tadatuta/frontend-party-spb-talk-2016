@@ -23,9 +23,9 @@ layout: default
 ## О чём речь
 
 * Сборка проекта при компонентном подходе
+* ...Алгебра деклараций
 * ...Композиция. Зависимости между компонентами
 * ...Уровни переопределения
-* ...Алгебра деклараций
 
 ## **Этот подход применим без блоков, элементов, модификаторов**
 
@@ -35,6 +35,12 @@ layout: default
 * ...[БЭМ](https://github.com/bem/bem-components/tree/v2/common.blocks)
 * ...[React](https://github.com/callemall/material-ui/tree/master/src)
 * ...[Web Components](https://github.com/PolymerElements)
+
+## **![](pictures/partially.png)**
+{:.cover}
+
+## **![](pictures/star.png)**
+{:.cover}
 
 ## Сборка при компонентном подходе
 
@@ -50,6 +56,8 @@ layout: default
 
 * Много ручной работы
 * ...Вербозно
+* ...Захардкоджены пути
+* ...Медленно
 * ...Мухи и котлеты
 
 ## **![](pictures/exit.jpg)**
@@ -86,6 +94,86 @@ index.decl.js
 ['component', 'components2']
 ~~~
 
+* ...<s>Много ручной работы</s>
+* ...<s>Вербозно</s>
+* ...<s>Захардкоджены пути</s>
+* ...<s>Медленно</s>
+* ...<s>Мухи и котлеты</s>
+
+## **Декларация — что и в каком порядке подключать в сборку**
+
+## Получение декларации
+
+* Интроспекция с файловой системы
+* ...Написание руками
+* ...Генерация по описанию страницы
+
+## Генерация по описанию страницы
+
+~~~ html
+<div class="component"></div>
+<div class="component2"></div>
+~~~
+
+## **Алгебра деклараций**
+
+## Алгебра деклараций
+
+* Объединение
+* Вычитание
+* Пересечение
+
+## Объединение
+
+~~~ js
+Декларация 1            Декларация 2            Декларация 3
+
+[                       [                       [
+    'header',               'header',               'header',
+    'button',               'button',               'button',
+    'link',                                         'link',
+    'attach',     +                        =        'attach',
+                            'menu',                 'menu',
+                            'image',                'image',
+    'checkbox',                                     'checkbox',
+                            'popup'                 'popup',
+    'textarea'                                      'textarea'
+]                       ]                       ]
+~~~
+
+## Вычитание
+
+~~~ js
+Декларация 1            Декларация 2            Декларация 3
+
+[                       [                       [
+    'button',               'button',
+    'checkbox',                                     'checkbox',
+    'textarea',                                     'textarea',
+    'suggest'                                       'suggest'
+                            'header',
+                    -       'input',       =
+                            'button',
+                            'menu'
+]                       ]                       ]
+~~~
+
+## Пересечение
+
+~~~ js
+Декларация 1            Декларация 2            Декларация 3
+
+[                       [                       [
+    'header',               'header',               'header',
+    'input',                'menu',
+    'link',        ⋂        'button',     =
+    'attach',               'input',
+    'checkbox',             'image',
+    'textarea',             'popup',
+    'footer'                'footer'                'footer'
+]                        ]                       ]
+~~~
+
 ## Композиция. Зависимости между компонентами
 
 * Зависимости как технология компонента
@@ -108,6 +196,8 @@ require(../../path/to/component2/component2.js);
 /* my-component logic */
 ~~~
 
+[Пример](https://github.com/callemall/material-ui/blob/master/src/AutoComplete/AutoComplete.js#L1-L11)
+
 ## Стало
 
 my-component.deps.js
@@ -116,43 +206,79 @@ my-component.deps.js
 ['component', 'components2']
 ~~~
 
+## Стало
+
+my-component.deps.js
+
+~~~ js
+{
+    mustDeps: ['component'],
+    shouldDeps: ['components2']
+}
+~~~
+
 ## **Уровни переопределения**
 
 ## **![](pictures/levels.png)**
 {:.cover}
 
-## Уровни переопределения
+## Уровни переопределения позволяют
+
+* Дешево обновлять библиотечный код
+* ...Разделять общие части реализации блоков от частных
+* ...Разделять проект на платформы
+
+## Пример
+
+~~~
+library-blocks/    # Уровень библиотеки
+  input/
+  button/          # Базовая реализация блока button
+  popup/
+project/           # Уровень проекта
+  input/
+  button/          # Измененная реализация блока button
+  header/
+~~~
+
+## Пример
+
+common.blocks/button/button.css
 
 ~~~ css
 .button {
-    width: 200px;
-    color: red;
+    height: 25px;
 }
 ~~~
 
-## Уровни переопределения
+touch.block/button/button.css
 
 ~~~ css
-.button {
-    width: 200px;
-    color: red;
-}
-
 .button {
     height: 50px;
-    color: green;
+    tap-highlight-color: #ccc;
 }
 ~~~
 
-## **Алгебра деклараций**
+## Было
+@import "library/common.blocks/button/button.css";
+@import "library/touch.block/button/button.css";
+@import "library/design/common.block/button/button.css";
+@import "library/design/touch.block/button/button.css";
+@import "project/common.blocks/button/button.css";
+@import "project/touch.blocks/button/button.css";
 
-## Алгебра деклараций
+## Стало
+['button']
 
-* Сложение
-* Вычитание
-* Пересечение
+## Как это работает
 
-## **[Как это работает](https://github.com/bem/project-stub/tree/preparing-for-master)**
+* [Инструменты](https://github.com/bem-sdk)
+* [Пример](https://github.com/bem/project-stub/tree/preparing-for-master)
+
+## **Что дальше?**
+
+## **[bem.info/methodology/build](https://ru.bem.info/methodology/build/)**
 
 ## **Ваши вопросы!**
 
