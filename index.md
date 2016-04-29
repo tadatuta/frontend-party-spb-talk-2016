@@ -29,7 +29,7 @@ layout: default
 
 ## **Этот подход применим без блоков, элементов, модификаторов**
 
-## Копонентный подход
+## Компонентный подход
 
 * [Bootstrap](https://github.com/twbs/bootstrap/tree/master/less)
 * ...[БЭМ](https://github.com/bem/bem-components/tree/v2/common.blocks)
@@ -235,6 +235,7 @@ library-blocks/    # Уровень библиотеки
   input/
   button/          # Базовая реализация блока button
   popup/
+
 project/           # Уровень проекта
   input/
   button/          # Измененная реализация блока button
@@ -261,12 +262,17 @@ touch.block/button/button.css
 ~~~
 
 ## Было
+
+~~~ css
 @import "library/common.blocks/button/button.css";
 @import "library/touch.block/button/button.css";
 @import "library/design/common.block/button/button.css";
 @import "library/design/touch.block/button/button.css";
 @import "project/common.blocks/button/button.css";
 @import "project/touch.blocks/button/button.css";
+~~~
+
+И аналогично для JS.
 
 ## Стало
 ['button']
@@ -278,7 +284,7 @@ touch.block/button/button.css
 
 ## **Что дальше?**
 
-## **[bem.info/methodology/build](https://ru.bem.info/methodology/build/)**
+## **[bem.info/methodology/<br>build](https://ru.bem.info/methodology/build/)**
 
 ## **Ваши вопросы!**
 

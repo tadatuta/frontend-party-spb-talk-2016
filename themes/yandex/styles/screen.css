@@ -876,3 +876,7 @@ ul li a:after
     /*margin: -320px 0 0 -512px;*/
     margin: -400px 0 0 -640px
 }
+
+.slide#cover h2 {
+    line-height: 1.5;
+}

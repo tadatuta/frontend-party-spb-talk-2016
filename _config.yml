@@ -12,7 +12,7 @@ kramdown:
   enable_coderay: false
 
 presentation:
-    title: Модульная сборка проектов.<br>И никаких bem-tools
+    title: Модульная сборка проектов.<br>И никаких bem-tools.
     service: БЭМ
     nda: false
 
