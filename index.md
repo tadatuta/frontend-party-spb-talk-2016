@@ -272,7 +272,7 @@ touch.block/button/button.css
 @import "project/touch.blocks/button/button.css";
 ~~~
 
-И аналогично для JS.
+...И аналогично для JS.
 
 ## Стало
 ['button']
